@@ -11,3 +11,5 @@ Steps to run this project:
 Medium Post [https://medium.com/javascript-in-plain-english/creating-a-rest-api-with-jwt-authentication-and-role-based-authorization-using-typescript-fbfa3cab22a4]
 
 TypeORM Offical [https://typeorm.io/]
+
+https://softwareontheroad.com/ideal-nodejs-project-structure/

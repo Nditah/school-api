@@ -2,10 +2,14 @@
    "name": "school-user-api",
    "version": "0.0.1",
    "description": "User microsservice for Education Management Information System.",
+   "private": true,
+   "type": "module",
    "scripts": {
       "tsc": "tsc",
-      "start": "set debug=* && ts-node-dev --respawn --transpileOnly ./src/index.ts",
-      "prod": "tsc && node ./build/app.js",
+      "start": "ts-node src/server.ts",
+      "dev": "set debug=* && ts-node-dev --respawn --transpileOnly ./src/server.ts --experimental-modules",
+      "prod": "tsc && node ./build/index.js --experimental-modules",
+      "test": "",
       "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run"
    },
    "dependencies": {
@@ -22,6 +26,7 @@
       "express": "^4.15.4",
       "helmet": "^3.21.2",
       "jsonwebtoken": "^8.5.1",
+      "morgan": "^1.9.1",
       "mysql2": "^2.1.0",
       "reflect-metadata": "^0.1.10",
       "ts-node-dev": "^1.0.0-pre.44",
