@@ -20,4 +20,4 @@ export default {
         apiKey: process.env.MAILCHIMP_API_KEY,
         sender: process.env.MAILCHIMP_SENDER,
     },
-}
+};
