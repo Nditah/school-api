@@ -3,29 +3,27 @@
         "es6": true,
         "node": true
     },
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
     "extends": [
         "airbnb-base",
         "eslint:recommended",
         "plugin:prettier/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
       ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module",
-        "project": "./tsconfig.json"
-    },
-    "plugins": [
-        "@typescript-eslint"
-    ],
     "rules": {
-        "max-len": [2, 120, 8],
+        "@typescript-eslint/rule-name": "error",
         "@typescript-eslint/explicit-function-return-type": 0,
         "@typescript-eslint/indent": [2, 2],
         "no-console": "off",
