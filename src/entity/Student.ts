@@ -11,10 +11,16 @@ import {
   
   @Entity()
   @Unique(["email"])
-  export class User {
+  export class Student {
     @PrimaryGeneratedColumn()
     id: number;
   
+    @Column()
+    surname: string;
+
+    @Column()
+    otherName: string;
+
     @Column()
     @Length(4, 20)
     email: string;
@@ -26,11 +32,11 @@ import {
     @Column()
     @Length(11, 15)
     phone: string;
-
-    @Column()
-    @IsNotEmpty()
-    role: string;
   
+    @Column()
+    @Length(10, 200)
+    address: string;
+
     @Column()
     @CreateDateColumn()
     createdAt: Date;

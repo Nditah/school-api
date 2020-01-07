@@ -10,11 +10,17 @@ import {
   import * as bcrypt from "bcryptjs";
   
   @Entity()
-  @Unique(["email"])
-  export class User {
+  @Unique(["phone"])
+  export class Employee {
     @PrimaryGeneratedColumn()
     id: number;
   
+    @Column()
+    surname: string;
+
+    @Column()
+    otherName: string;
+
     @Column()
     @Length(4, 20)
     email: string;
@@ -29,8 +35,12 @@ import {
 
     @Column()
     @IsNotEmpty()
-    role: string;
+    relationship: string;
   
+    @Column()
+    @Length(10, 200)
+    address: string;
+
     @Column()
     @CreateDateColumn()
     createdAt: Date;
