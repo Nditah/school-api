@@ -2,7 +2,12 @@
 
 [![CircleCI](https://circleci.com/gh/Nditah/school-api.svg?style=svg)](https://circleci.com/gh/Nditah/school-api)
 
-Steps to run this project:
+
+[![Build Status](https://travis-ci.org/Nditah/school-api.svg?branch=master)](https://travis-ci.org/Nditah/school-api)
+
+
+
+# Steps to run this project:
 
 1. Run `npm i` command
 2. Setup database settings inside `ormconfig.json` file
