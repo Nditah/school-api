@@ -1,5 +1,7 @@
 # Awesome Project Build with TypeORM
 
+[![CircleCI](https://circleci.com/gh/Nditah/school-api.svg?style=svg)](https://circleci.com/gh/Nditah/school-api)
+
 Steps to run this project:
 
 1. Run `npm i` command
@@ -13,15 +15,3 @@ Medium Post [https://medium.com/javascript-in-plain-english/creating-a-rest-api-
 TypeORM Offical [https://typeorm.io/]
 
 https://softwareontheroad.com/ideal-nodejs-project-structure/
-
-    docker:
-      - image: circleci/node:11.10.0
-      - image: circleci/mysql:latest
-    steps:
-      - checkout
-      - run:
-        name: "Update Node.js and Npm"
-        command: |
-          curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
-          curl https://www.npmjs.com/install.sh | sudo bash
-          
