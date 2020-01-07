@@ -7,6 +7,7 @@ export default {
     host: process.env.HOST,
     databaseURL: process.env.DATABASE_URI,
     jwtSecret: process.env.JWT_SECRET,
+    jwtExpiration: process.env.JWT_EXPIRATION,
     paypal: {
         publicKey: process.env.PAYPAL_PUBLIC_KEY,
         secretKey: process.env.PAYPAL_SECRET_KEY,

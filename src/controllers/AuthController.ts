@@ -5,39 +5,37 @@ import { validate } from "class-validator";
 
 import { User } from "../entity";
 import config from "../config";
+import { fail, success } from "../util";
 
 class AuthController {
+
   static login = async (req: Request, res: Response) => {
-    //Check if username and password are set
-    let { username, password } = req.body;
-    if (!(username && password)) {
-      res.status(400).send();
+    let { email, phone, password } = req.body;
+    if (!(email && password || phone && password)) {
+      return fail(res, 400, "Incorrect credentials!");
     }
 
     //Get user from database
     const userRepository = getRepository(User);
     let user: User;
     try {
-      user = await userRepository.findOneOrFail({ where: { username } });
+      user = await userRepository.findOneOrFail({ where: { email } });
     } catch (error) {
-      res.status(401).send();
+      return fail(res, 401, "Login failed!");
     }
 
     //Check if encrypted password match
     if (!user.checkIfUnencryptedPasswordIsValid(password)) {
-      res.status(401).send();
-      return;
+      return fail(res, 401, "Login failed!");
     }
-
+    const { id: userId, role } = user;
     //Sing JWT, valid for 1 hour
     const token = jwt.sign(
-      { userId: user.id, username: user.username },
+      { userId, email, phone, role },
       config.jwtSecret,
-      { expiresIn: "1h" }
+      { expiresIn: config.jwtExpiration }
     );
-
-    //Send the jwt in the response
-    res.send(token);
+    return success(res, 200, token, "Login successful");
   };
 
   static changePassword = async (req: Request, res: Response) => {
@@ -47,7 +45,7 @@ class AuthController {
     //Get parameters from the body
     const { oldPassword, newPassword } = req.body;
     if (!(oldPassword && newPassword)) {
-      res.status(400).send();
+      return fail(res, 400, "Incorrect credentials!");
     }
 
     //Get user from the database
@@ -55,28 +53,25 @@ class AuthController {
     let user: User;
     try {
       user = await userRepository.findOneOrFail(id);
-    } catch (id) {
-      res.status(401).send();
+    } catch (err) {
+      return fail(res, 401, `Login failed: ${err.message}`);
     }
 
     //Check if old password matchs
     if (!user.checkIfUnencryptedPasswordIsValid(oldPassword)) {
-      res.status(401).send();
-      return;
+      return fail(res, 401, "Incorrect password");
     }
 
     //Validate de model (password lenght)
     user.password = newPassword;
     const errors = await validate(user);
     if (errors.length > 0) {
-      res.status(400).send(errors);
-      return;
+      return fail(res, 400, null);
     }
     //Hash the new password and save
     user.hashPassword();
     userRepository.save(user);
-
-    res.status(204).send();
+    return success(res, 204, "New password set successfully");
   };
 }
 export default AuthController;
