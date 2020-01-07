@@ -3,12 +3,13 @@
    "version": "0.0.1",
    "description": "User microsservice for Education Management Information System.",
    "private": true,
-   "main": "dist/index.js",
+   "main": "dist/server.js",
+   "type": "module",
    "scripts": {
       "tsc": "tsc",
       "lint": "eslint --fix --ext .ts,.js ./src",
-      "start": "set debug=* && ts-node-dev --respawn --transpileOnly ./src/server.ts --experimental-modules",
-      "prod": "tsc && node ./build/index.js --experimental-modules",
+      "start": "set debug=* && ts-node-dev --respawn --transpileOnly ./src/server.ts",
+      "prod": "tsc && node ./build/server.js",
       "test": "mocha -r ts-node/register src/**/*.spec.ts",
       "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run"
    },
@@ -51,7 +52,7 @@
       "typescript": "^3.7.4"
    },
    "engines": {
-      "node": ">=12.0.0",
-      "npm": ">=6.0.0"
+      "node": ">=13.5.0",
+      "npm": ">=6.13.4"
    }
 }

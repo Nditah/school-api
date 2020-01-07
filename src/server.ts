@@ -14,7 +14,6 @@ dotenv.config();
 
 createConnection()
   .then(async connection => {
-    // create express app
     const app = express();
 
     app.get('/status', (req, res) => {
