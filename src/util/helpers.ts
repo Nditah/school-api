@@ -1,11 +1,12 @@
-
 // Retrieve token from request header
 export function extractJwtToken(req) {
-    if (req.headers.authorization && req.headers.authorization.split(" ")[ 0 ] === "Bearer" ||
-    req.headers.authorization && req.headers.authorization.split(" ")[ 0 ] === "Token"
+    if (
+    (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') ||
+        (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token')
     ) {
-        return req.headers.authorization.split(" ")[ 1 ];
-    } if (req.query && hasProp(req.query, "token")) {
+        return req.headers.authorization.split(' ')[1];
+    }
+  if (req.query && hasProp(req.query, 'token')) {
         return req.query.token;
     }
     return null;
@@ -14,7 +15,7 @@ export function extractJwtToken(req) {
 export function setLimit(inputlimit) {
     const limit = parseInt(inputlimit, 10);
     // eslint-disable-next-line no-restricted-globals
-    return (isNaN(limit) || limit == null || limit > 100 || limit == 0) ? 100 : limit;
+    return isNaN(limit) || limit == null || limit > 100 || limit == 0 ? 100 : limit;
 }
 
 export function timestamp() {
@@ -44,9 +45,8 @@ export function cloneObject(model = {}, source) {
  * @param {String} value Object value could be a String or Integer
  */
 export function getObjectByKey(arrayObject, key, value) {
-    return arrayObject.find(obj => obj[ key ] === value);
+    return arrayObject.find(obj => obj[key] === value);
 }
-
 
 /**
  * @description addToArrayOfObjects add a new object item to an array of objects
@@ -75,12 +75,12 @@ export default function addToArrayOfObjects(arrayOfObjects, limit, newObjectElem
 export function getClientAccess(req) {
     const ipAddress = req.ip || req._remoteAddress;
     // const lang = req.get("accept-language");
-    const accessDate = req._startTime || "";
+    const accessDate = req._startTime || '';
     return { accessDate, ipAddress };
 }
 
 export function isRealValue(obj) {
-    return obj && obj !== "null" && obj !== "undefined";
+    return obj && obj !== 'null' && obj !== 'undefined';
 }
 
 export function hasProp(obj, prop) {
@@ -101,14 +101,13 @@ export function generateOtp() {
     return num;
 }
 
-
 export function cleanDeepObject(obj) {
     // eslint-disable-next-line no-restricted-syntax
     for (const propName in obj) {
-        if (!obj[ propName ] || obj[ propName ].length === 0) {
-            delete obj[ propName ];
-        } else if (typeof obj === "object") {
-            cleanDeepObject(obj[ propName ]);
+        if (!obj[propName] || obj[propName].length === 0) {
+            delete obj[propName];
+        } else if (typeof obj === 'object') {
+            cleanDeepObject(obj[propName]);
         }
     }
     return obj;
@@ -121,10 +120,10 @@ export function cleanObject(obj) {
     depth += 1;
     // eslint-disable-next-line no-restricted-syntax
     for (const propName in obj) {
-        if (!obj[ propName ] || obj[ propName ].length === 0) {
-            delete obj[ propName ];
-        } else if (typeof obj === "object") {
-            if (depth <= 3) cleanObject(obj[ propName ]);
+        if (!obj[propName] || obj[propName].length === 0) {
+            delete obj[propName];
+        } else if (typeof obj === 'object') {
+            if (depth <= 3) cleanObject(obj[propName]);
         }
     }
     return obj;
@@ -138,9 +137,9 @@ export function cleanObject(obj) {
  */
 export function removeDuplicates(arrayOfObj, prop) {
     const setOfSeenObj = new Set();
-    const filteredArr = arrayOfObj.filter((item) => {
-        const duplicate = setOfSeenObj.has(item[ prop ]);
-        setOfSeenObj.add(item[ prop ]);
+    const filteredArr = arrayOfObj.filter(item => {
+        const duplicate = setOfSeenObj.has(item[prop]);
+        setOfSeenObj.add(item[prop]);
         return !duplicate;
     });
     return filteredArr;
@@ -150,9 +149,9 @@ export function nextDate(d = 1) {
     return new Date(new Date().setDate(new Date().getDate() + d));
 }
 
-function genString(length, possible = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789") {
-    let text = "";
-    const str = possible || "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+function genString(length, possible = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789') {
+    let text = '';
+    const str = possible || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < length; i++) {
         text += str.charAt(Math.floor(Math.random() * str.length));
@@ -162,11 +161,20 @@ function genString(length, possible = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789") {
 
 function daysIntoYear(date = new Date()) {
     // eslint-disable-next-line max-len
-    return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;
+    return (
+    (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) /
+        24 /
+        60 /
+        60 /
+        1000
+  );
 }
 
 export function genCode(len = 9) {
-    let d = new Date().getFullYear().toString().substr(-2);
+    let d = new Date()
+    .getFullYear()
+    .toString()
+    .substr(-2);
     d += daysIntoYear();
     if (len - d.length > 0) return d + genString(len - d.length);
     return genString(len);
@@ -174,7 +182,7 @@ export function genCode(len = 9) {
 
 export function hasNull(Obj = {}) {
     const val = Object.values(Obj);
-    if (val.includes(null) || val.includes(undefined) || val.includes("")) return true;
+    if (val.includes(null) || val.includes(undefined) || val.includes('')) return true;
     return false;
 }
 
@@ -192,8 +200,8 @@ export function hasNull(Obj = {}) {
 
 export function getIpAddressFromRequest(request) {
     let ipAddr = request.connection.remoteAddress;
-    if (request.headers && request.headers[ "x-forwarded-for" ]) {
-        [ipAddr] = request.headers[ "x-forwarded-for" ].split(",");
+    if (request.headers && request.headers['x-forwarded-for']) {
+        [ipAddr] = request.headers['x-forwarded-for'].split(',');
     }
     return ipAddr;
 }

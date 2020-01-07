@@ -1,20 +1,13 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    Unique,
-    CreateDateColumn,
-    UpdateDateColumn
-  } from "typeorm";
-  import { Length, IsNotEmpty } from "class-validator";
-  import * as bcrypt from "bcryptjs";
-  
-  @Entity()
-  @Unique(["email"])
-  export class Student {
+import { Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Length, IsNotEmpty } from 'class-validator';
+import * as bcrypt from 'bcryptjs';
+
+@Entity()
+@Unique(['email'])
+export class Student {
     @PrimaryGeneratedColumn()
     id: number;
-  
+
     @Column()
     surname: string;
 
@@ -24,15 +17,15 @@ import {
     @Column()
     @Length(4, 20)
     email: string;
-  
+
     @Column()
     @Length(4, 100)
     password: string;
-  
+
     @Column()
     @Length(11, 15)
     phone: string;
-  
+
     @Column()
     @Length(10, 200)
     address: string;
@@ -40,16 +33,16 @@ import {
     @Column()
     @CreateDateColumn()
     createdAt: Date;
-  
+
     @Column()
     @UpdateDateColumn()
     updatedAt: Date;
-  
+
     hashPassword() {
-      this.password = bcrypt.hashSync(this.password, 8);
+        this.password = bcrypt.hashSync(this.password, 8);
     }
-  
+
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
-      return bcrypt.compareSync(unencryptedPassword, this.password);
+    return bcrypt.compareSync(unencryptedPassword, this.password);
     }
-  }
+}
